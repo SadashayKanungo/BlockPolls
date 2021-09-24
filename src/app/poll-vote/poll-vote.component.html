@@ -1,0 +1,29 @@
+<div class="p-3">
+  <h3 class="fw-bold text-center">{{question}}</h3>
+
+  <form *ngIf="!voted" [formGroup]="voteForm" (ngSubmit)="submitForm()" >
+
+    <div class="form-check d-flex justify-content-start"
+      *ngFor="let option of options; let i = index">
+        <input type="radio" class="form-check-input d-inline-block mt-4"
+          formControlName="selected" [value]="i">
+        <label class="form-check-label d-inline-block m-3 fw-bold">{{option}}</label>
+    </div>
+    <button type="submit" class="btn btn-light m-3 w-100" [disabled]="!voteForm.valid">Submit Vote</button>
+  </form>
+
+  <div *ngIf="voted" class="d-flex flex-column">
+
+    <div *ngFor="let option of options; let i = index">
+
+      <label class="form-check-label d-inline-block m-3 mb-1 w-100 text-left fw-bold">{{option}}</label>
+
+      <div class="progress bg-light border border-2 border-light w-75 m-3 mt-0"><div class="progress-bar bg-secondary fw-bold" role="progressbar"
+          [style]="percentageOfVotes[i]" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            {{results[i]}}
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>
